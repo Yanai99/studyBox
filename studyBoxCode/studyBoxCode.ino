@@ -95,19 +95,25 @@ void LockBox()
 {
   int i;
   int minutesDelay = timeMinutes + (timeHours*60);
+  int secondsDelay = minutesDelay * 60;
   lcd.clear();
   lcd.print("Locked, Study!");
   lcd.setCursor(0, 1);
   lcd.print("Time Left:");
-  for( i =0; i <minutesDelay ; i++)
+  for( i =0; i <secondsDelay ; i++)
   {
+    if(!digitalRead(BUTTON_DOWN) && !digitalRead(BUTTON_UP))
+    {
+      if(GiveUp())
+        return;
+    }
     lcd.clear();
     lcd.print("Locked, Study!");
     lcd.setCursor(0, 1);
     lcd.print("Time Left:");
-    lcd.print(minutesDelay - i);
+    lcd.print((secondsDelay/60) - i/60);
     lcd.print(" Min");
-    delay(60000);  
+    delay(1000);  
   }
   lcd.clear();
   lcd.print("Cngratz!");
@@ -118,3 +124,28 @@ void setTimeString(int hours, int minutes)
 {
   sprintf(timeString, "%02d:%02d", hours, minutes);
 }
+
+bool GiveUp()
+{
+ 
+  lcd.clear();
+  lcd.print("Loser!");
+  delay(1000);
+  while(true)
+  {
+    lcd.clear();
+    lcd.print("Do You Confrim?");
+    lcd.setCursor(0, 1);
+    lcd.print("yes <-  -> NO :)");
+    if(!digitalRead(BUTTON_UP))
+    {
+      return false;
+    }
+    if(!digitalRead(BUTTON_DOWN))
+    {
+      return true;
+    }
+    delay(500);
+  }
+}
+
