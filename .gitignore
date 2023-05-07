@@ -1,0 +1,20 @@
+# Ignore build files and output
+build/
+*.elf
+*.hex
+*.bin
+*.eep
+*.map
+
+# Ignore IDE-specific files
+.vscode/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+
+# Ignore temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
