@@ -1,4 +1,7 @@
 #include <LiquidCrystal.h>
+#include <Servo.h>
+Servo myServo;
+
 #define BUTTON_END 13
 #define BUTTON_UP 12
 #define BUTTON_DOWN 11
@@ -17,6 +20,8 @@ bool changeTime = false;
 void setup() {
   Serial.begin(9600);
 
+  myServo.attach(10); // attach the servo to pin 10
+   myServo.write(90);
   pinMode(contrastPin, OUTPUT);
   pinMode(BUTTON_END, INPUT_PULLUP);
   pinMode(BUTTON_UP, INPUT_PULLUP);
@@ -115,8 +120,9 @@ void LockBox()
     lcd.print(" Min");
     delay(1000);  
   }
+  myServo.write(180);
   lcd.clear();
-  lcd.print("Cngratz!");
+  lcd.print("Congratz!");
 
 }
 
